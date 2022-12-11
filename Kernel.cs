@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Sys = Cosmos.System;
 
-namespace CosmosKernel2
+namespace CosmosKernel1
 {
     public class Kernel : Sys.Kernel
     {
