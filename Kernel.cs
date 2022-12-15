@@ -7,7 +7,7 @@ using System.Text;
 using Point = Cosmos.System.Graphics.Point;
 using Sys = Cosmos.System;
 
-namespace CosmosKernel2
+namespace CosmosKernel1
 {
 
     public class windowss
