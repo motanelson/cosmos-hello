@@ -7,7 +7,7 @@ using System.Text;
 using Point = Cosmos.System.Graphics.Point;
 using Sys = Cosmos.System;
 
-namespace CosmosKernel2
+namespace CosmosKernel1
 {
 
     public class windowss
@@ -136,7 +136,7 @@ namespace CosmosKernel2
             int y = 0;
             int xx = maxx-1;
             int yy = maxy-1;
-            windowss[] windowsss = new windowss[10];
+            windowss[] windowsss = new windowss[maxwins];
         
             for (n=0;n< maxwins; n++) windowsss[n]=createWindow(n * 10 + 8, n * 10 + 8,100, 100,colors(0,(byte)parts(0xff,n),0));
              drawWindows(windowsss);
