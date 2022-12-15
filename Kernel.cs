@@ -1,53 +1,148 @@
-﻿using System;
+﻿using Cosmos.System.Graphics;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Point = Cosmos.System.Graphics.Point;
 using Sys = Cosmos.System;
 
-namespace CosmosKernel1
+namespace CosmosKernel2
 {
+
+    public class windowss
+    {
+        public int x = 0;
+        public int y = 0;
+        public int w = 0;
+        public int h = 0;
+        public Bitmap dc;
+        public int colorss;
+    }
     public class Kernel : Sys.Kernel
     {
-        int icentrs(int i)
+        Canvas canvas;
+        int maxy;
+        int maxx;
+        int maxwins;
+        int parts(int i,int t)
         {
-            return i / 2;
+            return i/t;
         }
-        string dstring(string s,int sizes)
+        void drawWindows(windowss[] wins)
         {
-            string ss = "";
             int n = 0;
-            for (n = 0; n < sizes; n++)
+            canvas.Clear(Color.Green);
+            for (n = 0; n < wins.Length; n++)
             {
-                ss = ss + s;
+                canvas.DrawImage(wins[n].dc, new Point(wins[n].x, wins[n].y));
             }
-            return ss;
+            canvas.Display();
         }
-        string spaces(int sizes)
+        windowss createWindow(int x,int y,int w,int h,int colorss)
         {
-            return dstring(" ", sizes);
+            windowss windowsss = new windowss();
+            windowsss.y = y;
+            windowsss.x = x;
+            windowsss.w = w;
+            windowsss.h = h;
+            windowsss.dc = createsbitmap((uint)windowsss.w,(uint) windowsss.h);
+            windowsss.colorss = colorss;
+            fills(windowsss.dc, windowsss.colorss);
+            rets(windowsss.dc, 0, 0, (int)w - 1, (int)w - 1, 0);
+            return windowsss;
         }
-        void center(string s,int cols)
+        void rets(Bitmap b, int x, int y, int x1, int y1, int colors)
         {
-            Console.WriteLine(spaces((cols - s.Length) / 2)+s); 
+
+            hlines(b, x, y, x1, colors);
+            hlines(b, x, y1, x1, colors);
+            vlines(b, x, y, y1, colors);
+            vlines(b, x1, y, y1, colors);
+
+
+        }
+        void boxs(Bitmap b, int x, int y,int x1, int y1, int colors)
+        {
+            int n = 0;
+    
+
+            if (y1>=y) {
+                for (n = 0; n < y1 - y; n++)
+                {
+                    hlines(b,x, y + n, x1, colors);  
+                }
+            }
+        }
+        void vlines(Bitmap b, int x, int y, int y1, int colors)
+        {
+            int n = 0;
+            int[] bt = b.rawData;
+            if (x < b.Width && y < b.Height && x > -1 && y > -1 && y1 < b.Height && y1 > -1 && y1 >= y)
+            {
+                for (n = 0; n < y1 - y; n++)
+                {
+                    bt[y * b.Width + x + (n* b.Width)] = colors;
+                }
+            }
+        }
+        void hlines(Bitmap b, int x, int y,int x1, int colors)
+        {
+            int n = 0;
+            int[] bt = b.rawData;
+            if (x < b.Width && y < b.Height && x > -1 && y > -1 && x1 < b.Width && x1 > -1 && x1 >= x) {
+                for (n = 0; n < x1 - x;n++)
+                {
+                    bt[y * b.Width + x+n] = colors;
+                }
+            }
+        }
+        void psets(Bitmap b,int x , int y,int colors)
+        {
+            int n = 0;
+            int[] bt = b.rawData;
+            if (x< b.Width && y<b.Height && x>-1 && y>-1) bt[y*b.Width+x] = colors;
+        }
+        int colors(byte reds,byte greens ,byte blues) {
+            return blues | greens << 8 | reds  <<16;
+        }
+        Bitmap createsbitmap(uint x, uint y)
+        {
+            Bitmap bitmap = new Bitmap(x, y, ColorDepth.ColorDepth32);
+            return bitmap;
+        }
+        void fills(Bitmap b,int colors)
+        {
+            int n = 0;
+            int[] bt = b.rawData;
+            for (n = 0; n < b.Height * b.Width; n++) bt[n] = colors;
         }
         protected override void BeforeRun()
         {
-            Console.BackgroundColor = ConsoleColor.Green;
-            string s = "**";
-            int n = 0;
-            for (n = 0; n < 16;n++)
-            {
-                center(s, 80);
-                s = s + "**";
-            }
-            
+            maxx = 640;
+            maxy = 480;
+            maxwins = 10;
+            Console.WriteLine("start.");
+            canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(maxx, maxy, ColorDepth.ColorDepth32));
+            canvas.Clear(Color.Green);
         }
 
         protected override void Run()
         {
+            Pen pen = new Pen(Color.DarkGreen);
            
-            var input = Console.ReadLine();
+            int n = 0;
+            int x = 0;
+            int y = 0;
+            int xx = maxx-1;
+            int yy = maxy-1;
+            windowss[] windowsss = new windowss[10];
+        
+            for (n=0;n< maxwins; n++) windowsss[n]=createWindow(n * 10 + 8, n * 10 + 8,100, 100,colors(0,(byte)parts(0xff,n),0));
+             drawWindows(windowsss);
             
-            
+            Console.ReadKey();
+           
         }
     }
 }
