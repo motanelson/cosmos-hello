@@ -6,6 +6,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Point = Cosmos.System.Graphics.Point;
 using Sys = Cosmos.System;
+using Cosmos.HAL;
+using Cosmos.Core.IOGroup;
 
 namespace CosmosKernel1
 {
@@ -125,22 +127,50 @@ namespace CosmosKernel1
             Console.WriteLine("start.");
             canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(maxx, maxy, ColorDepth.ColorDepth32));
             canvas.Clear(Color.Green);
+            Sys.MouseManager.ScreenHeight =(uint) maxy ;
+            Sys.MouseManager.ScreenWidth =(uint) maxx ;
+
         }
 
         protected override void Run()
         {
             Pen pen = new Pen(Color.DarkGreen);
-           
             int n = 0;
             int x = 0;
             int y = 0;
             int xx = maxx-1;
             int yy = maxy-1;
+            Boolean  c1 = false;
+            Color c = Color.Black ;
             windowss[] windowsss = new windowss[maxwins];
         
             for (n=0;n< maxwins; n++) windowsss[n]=createWindow(n * 10 + 8, n * 10 + 8,100, 100,colors(0,(byte)parts(0xff,n),0));
              drawWindows(windowsss);
-            
+
+            x = (int)Sys.MouseManager.X;
+            n =0;
+            y = (int)Sys.MouseManager.Y;
+            while (1==1)
+            {
+                x = (int)Sys.MouseManager.X;
+                n = (int)Sys.MouseManager.MouseState;
+                y = (int)Sys.MouseManager.Y;
+                if (x!=xx || y!=yy) {
+                    if (!c1)
+                    {
+                        c = canvas.GetPointColor(xx,yy);
+                        c1 = true;
+                    }
+                    canvas.DrawPoint(new Pen (c), new Point(xx, yy));
+                    c = canvas.GetPointColor(x, y);
+                    canvas.DrawPoint(new Pen(Color.Black), new Point(x, y));
+                    xx = x;
+                    yy = y;
+                    
+                    canvas.Display();
+                }
+
+            }
             Console.ReadKey();
            
         }
