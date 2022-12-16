@@ -157,7 +157,7 @@ namespace CosmosKernel1
             int y = 0;
             int xx = maxx-1;
             int yy = maxy-1;
-            windowss cursors= createWindow(0, 0, 8, 8, colors(0, (byte)parts(0xff, n), 0));
+            windowss cursors= createWindow(0, 0, cursorSize, cursorSize, colors(0, (byte)parts(0xff, n), 0));
             Boolean  c1 = false;
            int c = new Pen(Color.Black).ValueARGB ;
             windowss[] windowsss = new windowss[maxwins];
@@ -186,8 +186,8 @@ namespace CosmosKernel1
 
                         canvas.DrawImage(cursors.dc, new Point(xx, yy)) ;
                         getCursor(cursors.dc, x, y);
-                        canvas.DrawFilledRectangle(new Pen(colorCursor ), new Point(x,y),cursorSize-1, cursorSize - 1);
-                        xx = x;
+                        canvas.DrawFilledEllipse(new Pen(colorCursor ), new Point(x+ (cursorSize/2), y+ (cursorSize / 2)),(cursorSize-1)/2, (cursorSize - 1)/2);
+                        xx = x; 
                         yy = y;
 
                         canvas.Display();
