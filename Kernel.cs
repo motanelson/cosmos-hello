@@ -159,16 +159,21 @@ namespace CosmosKernel1
                 if (x!=xx || y!=yy) {
                     if (!c1)
                     {
-                        c = canvas.GetPointColor(xx,yy);
+                        xx = x;
+                        yy = y;
+                        c = canvas.GetPointColor(x, y);
                         c1 = true;
                     }
-                    canvas.DrawPoint(new Pen (c), new Point(xx, yy));
-                    c = canvas.GetPointColor(x, y);
-                    canvas.DrawPoint(new Pen(Color.White), new Point(x, y));
-                    xx = x;
-                    yy = y;
-                    
-                    canvas.Display();
+                    else 
+                    {
+                        canvas.DrawPoint(new Pen(c), new Point(xx, yy));
+                        c = canvas.GetPointColor(x, y);
+                        canvas.DrawPoint(new Pen(Color.White), new Point(x, y));
+                        xx = x;
+                        yy = y;
+
+                        canvas.Display();
+                    }
                 }
 
             }
