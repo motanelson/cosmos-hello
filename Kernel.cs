@@ -33,6 +33,19 @@ namespace CosmosKernel1
         {
             return i/t;
         }
+        void getCursor(Bitmap bts,int x, int y)
+        {
+            int n=0;
+            int nn = 0;
+            for (n = 0; n < cursorSize; n++)
+            {
+                for (nn = 0; nn < cursorSize; nn++)
+                {
+                    psets(bts, nn, n, canvas.GetPointColor(x+nn, y+n).ToArgb());
+                }
+            }
+        }
+
         void drawWindows(windowss[] wins)
         {
             int n = 0;
@@ -144,7 +157,7 @@ namespace CosmosKernel1
             int y = 0;
             int xx = maxx-1;
             int yy = maxy-1;
-            windowss cursors= createWindow(0, 0, 1, 1, colors(0, (byte)parts(0xff, n), 0));
+            windowss cursors= createWindow(0, 0, 8, 8, colors(0, (byte)parts(0xff, n), 0));
             Boolean  c1 = false;
            int c = new Pen(Color.Black).ValueARGB ;
             windowss[] windowsss = new windowss[maxwins];
@@ -165,15 +178,15 @@ namespace CosmosKernel1
                     {
                         xx = x;
                         yy = y;
-                        c =canvas.GetPointColor(x, y).ToArgb();
+                        getCursor(cursors.dc, x, y);
                         c1 = true;
                     }
                     else 
                     {
-                        psets(cursors.dc, 0, 0, c);
-                        canvas.DrawImage(cursors.dc,new Point(xx, yy));
-                        c = canvas.GetPointColor(x, y).ToArgb() ;
-                        canvas.DrawPoint(new Pen(colorCursor ), new Point(x, y));
+
+                        canvas.DrawImage(cursors.dc, new Point(xx, yy)) ;
+                        getCursor(cursors.dc, x, y);
+                        canvas.DrawFilledRectangle(new Pen(colorCursor ), new Point(x,y),cursorSize-1, cursorSize - 1);
                         xx = x;
                         yy = y;
 
