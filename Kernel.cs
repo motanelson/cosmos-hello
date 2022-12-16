@@ -26,6 +26,8 @@ namespace CosmosKernel1
         int maxy;
         int maxx;
         int maxwins;
+        int cursorSize;
+        Color colorCursor;
 
         int parts(int i,int t)
         {
@@ -124,11 +126,13 @@ namespace CosmosKernel1
             maxx = 640;
             maxy = 480;
             maxwins = 10;
+            cursorSize = 8;
+            colorCursor=Color.White ;
             Console.WriteLine("start.");
             canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(maxx, maxy, ColorDepth.ColorDepth32));
             canvas.Clear(Color.Green);
-            Sys.MouseManager.ScreenHeight =(uint) maxy ;
-            Sys.MouseManager.ScreenWidth =(uint) maxx ;
+            Sys.MouseManager.ScreenHeight =(uint) (maxy-cursorSize)  ;
+            Sys.MouseManager.ScreenWidth =(uint) (maxx - cursorSize) ;
 
         }
 
@@ -169,7 +173,7 @@ namespace CosmosKernel1
                         psets(cursors.dc, 0, 0, c);
                         canvas.DrawImage(cursors.dc,new Point(xx, yy));
                         c = canvas.GetPointColor(x, y).ToArgb() ;
-                        canvas.DrawPoint(new Pen(Color.White), new Point(x, y));
+                        canvas.DrawPoint(new Pen(colorCursor ), new Point(x, y));
                         xx = x;
                         yy = y;
 
