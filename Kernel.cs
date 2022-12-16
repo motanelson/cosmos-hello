@@ -142,7 +142,7 @@ namespace CosmosKernel1
             int xx = maxx-1;
             int yy = maxy-1;
             Boolean  c1 = false;
-            Color c = Color.Black ;
+            Pen c = new Pen(Color.Black) ;
             windowss[] windowsss = new windowss[maxwins];
         
             for (n=0;n< maxwins; n++) windowsss[n]=createWindow(n * 10 + 8, n * 10 + 8,100, 100,colors(0,(byte)parts(0xff,n),0));
@@ -161,13 +161,13 @@ namespace CosmosKernel1
                     {
                         xx = x;
                         yy = y;
-                        c = canvas.GetPointColor(x, y);
+                        c = new Pen(canvas.GetPointColor(x, y));
                         c1 = true;
                     }
                     else 
                     {
-                        canvas.DrawPoint(new Pen(c), new Point(xx, yy));
-                        c = canvas.GetPointColor(x, y);
+                        canvas.DrawPoint(c, new Point(xx, yy));
+                        c = new Pen(canvas.GetPointColor(x, y));
                         canvas.DrawPoint(new Pen(Color.White), new Point(x, y));
                         xx = x;
                         yy = y;
