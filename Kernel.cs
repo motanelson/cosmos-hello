@@ -140,6 +140,7 @@ namespace CosmosKernel1
             int y = 0;
             int xx = maxx-1;
             int yy = maxy-1;
+            windowss cursors= createWindow(0, 0, 1, 1, colors(0, (byte)parts(0xff, n), 0));
             Boolean  c1 = false;
            int c = new Pen(Color.Black).ValueARGB ;
             windowss[] windowsss = new windowss[maxwins];
@@ -165,7 +166,8 @@ namespace CosmosKernel1
                     }
                     else 
                     {
-                        canvas.DrawPoint(new Pen(Color.FromArgb(c)), new Point(xx, yy));
+                        psets(cursors.dc, 0, 0, c);
+                        canvas.DrawImage(cursors.dc,new Point(xx, yy));
                         c = canvas.GetPointColor(x, y).ToArgb() ;
                         canvas.DrawPoint(new Pen(Color.White), new Point(x, y));
                         xx = x;
