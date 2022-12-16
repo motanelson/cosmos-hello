@@ -27,6 +27,7 @@ namespace CosmosKernel1
         int maxy;
         int maxx;
         int maxwins;
+
         int parts(int i,int t)
         {
             return i/t;
@@ -163,7 +164,7 @@ namespace CosmosKernel1
                     }
                     canvas.DrawPoint(new Pen (c), new Point(xx, yy));
                     c = canvas.GetPointColor(x, y);
-                    canvas.DrawPoint(new Pen(Color.Black), new Point(x, y));
+                    canvas.DrawPoint(new Pen(Color.White), new Point(x, y));
                     xx = x;
                     yy = y;
                     
