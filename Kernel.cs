@@ -28,6 +28,7 @@ namespace CosmosKernel1
         int maxwins;
         int cursorSize;
         Color colorCursor;
+        Color desktopColor;
 
         int parts(int i,int t)
         {
@@ -49,7 +50,7 @@ namespace CosmosKernel1
         void drawWindows(windowss[] wins)
         {
             int n = 0;
-            canvas.Clear(Color.Green);
+            canvas.Clear(desktopColor);
             for (n = 0; n < wins.Length; n++)
             {
                 canvas.DrawImage(wins[n].dc, new Point(wins[n].x, wins[n].y));
@@ -141,6 +142,7 @@ namespace CosmosKernel1
             maxwins = 10;
             cursorSize = 8;
             colorCursor=Color.White ;
+            desktopColor = Color.Green;
             Console.WriteLine("start.");
             canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(maxx, maxy, ColorDepth.ColorDepth32));
             canvas.Clear(Color.Green);
